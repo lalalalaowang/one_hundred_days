@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_hundred_days/screens/one_widget.dart';
+import 'package:one_hundred_days/screens/two_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const OneWidget(),
+      // body: const OneWidget(),
+      body: const TwoWidget(),
     );
   }
 }

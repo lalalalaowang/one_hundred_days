@@ -16,9 +16,9 @@ class _OneWidgetState extends State<OneWidget> {
             color: Colors.blue,
             border: Border.all(
                 color: Colors.grey,
-                width: 2.0
+                width: 2
             ),
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10),
             boxShadow: const [
               BoxShadow(
                 color: Colors.grey,
