@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class TwoWidget extends StatefulWidget {
@@ -8,44 +10,89 @@ class TwoWidget extends StatefulWidget {
 }
 
 class _TwoWidgetState extends State<TwoWidget> {
+  bool _isHovered = false;
+  bool _isMidShow = true;
+  Timer? _timer;
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        width: 400,
-        height: 400,
-        decoration: BoxDecoration(
-          color: Colors.pinkAccent,
-          border: Border.all(
-            width: 2,
-            color: Colors.purpleAccent,
-          ),
-          borderRadius: BorderRadius.circular(2),
-          boxShadow: const [
-            BoxShadow(
-              color:Colors.greenAccent,
-              offset: Offset(2, 2),
-              blurRadius: 3,
+        child:MouseRegion(
+          onEnter: (_) => {
+            setState(() {
+              _isHovered = true;
+              _isMidShow = false;
+              _timer?.cancel();
+            }),
+          },
+          onExit: (_) => {
+            setState(() {
+              _isHovered = false;
+            }),
+          _timer = Timer(const Duration(microseconds: 800), () {
+            if (mounted && !_isHovered) {
+              setState(() => _isMidShow = true);
+            }
+          }),
+          },
+          child:  Container(
+          width: 400,
+          height: 400,
+          decoration: BoxDecoration(
+            color: Colors.pinkAccent,
+            border: Border.all(
+              width: 2,
+              color: Colors.purpleAccent,
             ),
-          ],
-        ),
-        child: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            WhiteBar(Location.top),
-            WhiteBar(),
-            WhiteBar(),
-          ],
+            borderRadius: BorderRadius.circular(2),
+            boxShadow: const [
+              BoxShadow(
+                color:Colors.greenAccent,
+                offset: Offset(2, 2),
+                blurRadius: 3,
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedRotation(
+                turns: _isHovered? 0.125:0,
+                duration: const Duration(seconds: 1),
+                child: Padding(
+                  padding: EdgeInsets.only(top: _isHovered?0:30, bottom: _isHovered?0:30),
+                  child: const WhiteBar(),
+                )
+              ),
+              Visibility(
+                visible: _isMidShow,
+                child: const WhiteBar()
+              ),
+              AnimatedRotation(
+                turns: _isHovered? -0.125:0,
+                  duration: const Duration(seconds: 1),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: _isHovered?0:30, bottom: _isHovered?0:30),
+                    child: const WhiteBar(),
+                  )
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 }
 
 class WhiteBar extends StatefulWidget {
-  const WhiteBar(Location top, {super.key, required this.location});
-  final Location location;
-  
+  const WhiteBar({super.key});
+
   @override
   State<WhiteBar> createState() => _WhiteBarState();
 }
@@ -53,16 +100,13 @@ class WhiteBar extends StatefulWidget {
 class _WhiteBarState extends State<WhiteBar> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30, bottom: 30),
-      child: Container(
+    return Container(
         width: 300,
         height: 30,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(2),
         ),
-      ),
     );
   }
 }
