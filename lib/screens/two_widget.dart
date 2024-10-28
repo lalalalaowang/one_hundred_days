@@ -29,7 +29,7 @@ class _TwoWidgetState extends State<TwoWidget> {
             setState(() {
               _isHovered = false;
             }),
-          _timer = Timer(const Duration(microseconds: 800), () {
+          _timer = Timer(const Duration(seconds: 1), () {
             if (mounted && !_isHovered) {
               setState(() => _isMidShow = true);
             }
@@ -53,28 +53,37 @@ class _TwoWidgetState extends State<TwoWidget> {
               ),
             ],
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child:Stack(
+            alignment: Alignment.center,
             children: [
-              AnimatedRotation(
-                turns: _isHovered? 0.125:0,
-                duration: const Duration(seconds: 1),
-                child: Padding(
-                  padding: EdgeInsets.only(top: _isHovered?0:30, bottom: _isHovered?0:30),
-                  child: const WhiteBar(),
-                )
-              ),
-              Visibility(
-                visible: _isMidShow,
-                child: const WhiteBar()
-              ),
-              AnimatedRotation(
-                turns: _isHovered? -0.125:0,
+              Positioned(
+                top: _isHovered?190:90,
+                left: 0,
+                right: 0,
+                child: AnimatedRotation(
+                  turns: _isHovered? 0.125:0,
                   duration: const Duration(seconds: 1),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: _isHovered?0:30, bottom: _isHovered?0:30),
+                  child:  const WhiteBar(),
+                ),
+              ),
+              Positioned(
+                top: 190,
+                left: 0,
+                right: 0,
+                child: Visibility(
+                  visible: _isMidShow,
+                  child: const WhiteBar()
+                ),
+              ),
+              Positioned(
+                top: _isHovered?190:280,
+                left: 0,
+                right: 0,
+                child: AnimatedRotation(
+                  turns: _isHovered? -0.125:0,
+                    duration: const Duration(seconds: 1),
                     child: const WhiteBar(),
-                  )
+                ),
               ),
             ],
           ),
