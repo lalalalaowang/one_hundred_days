@@ -1,10 +1,12 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:one_hundred_days/screens/one_widget.dart';
+import 'package:one_hundred_days/screens/three_widget.dart';
 import 'package:one_hundred_days/screens/two_widget.dart';
 
 void main() {
-  // debugPaintSizeEnabled = true;
+  debugPaintSizeEnabled = false;
   runApp(const MyApp());
 }
 
@@ -35,6 +37,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  List<Widget> days = [
+    const OneWidget(),
+    const TwoWidget(),
+    const ThreeWidget(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       // body: const OneWidget(),
-      body: const TwoWidget(),
+      body:  CarouselSlider(
+        options: CarouselOptions(),
+        items: days,
+      ),
     );
   }
 }
