@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:one_hundred_days/screens/four_widget.dart';
 import 'package:one_hundred_days/screens/one_widget.dart';
 import 'package:one_hundred_days/screens/three_widget.dart';
 import 'package:one_hundred_days/screens/two_widget.dart';
@@ -41,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     const OneWidget(),
     const TwoWidget(),
     const ThreeWidget(),
+    const FourWidget(),
   ];
 
   @override
